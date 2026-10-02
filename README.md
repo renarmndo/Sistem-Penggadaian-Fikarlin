@@ -1,58 +1,173 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🏦 Sistem Penggadaian Fikarlin
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Sistem informasi manajemen penggadaian berbasis web menggunakan Laravel 11.
 
-## About Laravel
+## 📋 Fitur Utama
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### 👤 Petugas Front-Office (FR-1)
+- ✅ Master Data Nasabah
+- ✅ Transaksi Gadai Baru dengan Auto-Generate SBG (Surat Bukti Gadai)
+- ✅ Pelunasan & Perpanjangan (Scan Barcode SBG)
+- ✅ Transaksi Beli Barang Bekas
+- ✅ Print SBG & Nota Otomatis
+- ✅ Buku Kas & Riwayat Transaksi Harian
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### 📦 Admin Gudang (FR-2)
+- ✅ Kelola Stok & Lokasi Rak Gudang
+- ✅ Monitoring Kontrak Jatuh Tempo
+- ✅ Update Status: Macet → Siap Lelang
+- ✅ Modul Penjualan Lelang
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### 👨‍💼 Owner/Pengawas (FR-3)
+- ✅ Dashboard Real-Time (Piutang, Laba/Rugi, Transaksi)
+- ✅ Parameter Sistem (Bunga, Biaya Admin, Logo)
+- ✅ Kelola Akun Pengguna (Role Management)
+- ✅ Laporan Transaksi & Lelang (Export/Print)
 
-## Learning Laravel
+## 🛠️ Tech Stack
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- **Framework:** Laravel 11.x
+- **Database:** MySQL
+- **Frontend:** Blade Templates + Tailwind CSS
+- **Barcode:** Milon Barcode Generator
+- **Authentication:** Laravel Breeze
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## 📦 Installation
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
-
-## Agentic Development
-
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
-
+### 1. Clone Repository
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+git clone https://github.com/renarmndo/Sistem-Penggadaian-Fikarlin.git
+cd Sistem-Penggadaian-Fikarlin
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+### 2. Install Dependencies
+```bash
+composer install
+npm install
+```
 
-## Contributing
+### 3. Environment Setup
+```bash
+cp .env.example .env
+php artisan key:generate
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### 4. Database Configuration
+Edit file `.env`:
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=db_sistem_penggadaian
+DB_USERNAME=root
+DB_PASSWORD=
+```
 
-## Code of Conduct
+### 5. Migrate & Seed Database
+```bash
+php artisan migrate --seed
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### 6. Build Assets
+```bash
+npm run build
+```
 
-## Security Vulnerabilities
+### 7. Run Development Server
+```bash
+php artisan serve
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Aplikasi akan berjalan di `http://127.0.0.1:8000`
 
-## License
+## 👥 Default User Accounts
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Setelah seeding, gunakan akun berikut untuk login:
+
+| Role | Email | Password |
+|------|-------|----------|
+| Owner | owner@fikarlin.com | password |
+| Admin Gudang | admin@fikarlin.com | password |
+| Petugas | petugas@fikarlin.com | password |
+
+## 📁 Struktur Database
+
+- **users** - User accounts (owner, admin, petugas)
+- **app_settings** - System parameters (bunga, biaya admin, logo)
+- **customers** - Master data nasabah
+- **pawn_transactions** - Transaksi gadai
+- **pawn_payments** - Pelunasan & perpanjangan
+- **items** - Barang gadai & inventori
+- **purchase_transactions** - Transaksi beli barang bekas
+- **inventory_mutations** - Log mutasi stok gudang
+
+## 🔒 Security Features
+
+- ✅ Role-based Access Control (RBAC)
+- ✅ Password Hashing (Bcrypt)
+- ✅ CSRF Protection
+- ✅ Session Management
+- ✅ Input Validation & Sanitization
+- ✅ Lazy Loading Prevention (N+1 Query Detection)
+
+## 📊 Business Logic
+
+- **Bunga Gadai:** Configurable (default 0.75% per 15 hari)
+- **Biaya Admin:** Configurable (default 2% per transaksi)
+- **Status Barang:**
+  - Tersimpan (Rak Gudang)
+  - Terjual (Barang bekas)
+  - Macet (Overdue)
+  - Siap Lelang
+  - Terjual Lelang
+- **Status Transaksi:**
+  - Tersimpan (Aktif)
+  - Diperpanjang
+  - Lunas
+  - Macet
+
+## 📈 Performance Optimization
+
+- ✅ Eager Loading untuk prevent N+1 queries
+- ✅ Database Indexing
+- ✅ Session optimization (12 jam lifetime)
+- ✅ Query caching ready
+- ✅ Route caching support
+
+## 📄 Documentation
+
+Dokumentasi lengkap tersedia di folder `/docs`:
+- `prd.md` - Product Requirements Document
+- `design.md` - System Design
+- `flow.md` - Business Process Flow
+- `task.md` - Development Task List
+- `performance-fixes.md` - Performance Optimization Guide
+
+## 🧪 Testing
+
+Dokumentasi black box testing tersedia untuk:
+- ✅ User Login
+- ✅ Master Data Nasabah (11 test cases)
+- ✅ Transaksi Gadai
+- ✅ Pelunasan & Perpanjangan
+- ✅ Modul Lelang
+
+## 🤝 Contributing
+
+1. Fork repository
+2. Create feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to branch (`git push origin feature/AmazingFeature`)
+5. Open Pull Request
+
+## 📝 License
+
+This project is proprietary software for Fikarlin Pawnshop.
+
+## 👨‍💻 Developer
+
+Developed by **Renardo** for Fikarlin Pawnshop Management System
+
+---
+
+⭐ **Star this repository** if you find it useful!
