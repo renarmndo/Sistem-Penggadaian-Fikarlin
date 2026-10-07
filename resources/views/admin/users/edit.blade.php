@@ -1,9 +1,9 @@
-<x-app-layout title="Edit Akun Pengguna" role="owner">
+<x-app-layout title="Edit Akun Pengguna" role="admin">
     <x-page-header title="Edit Akun Pengguna (FR-3.3)" description="Perbarui informasi dan role akun {{ $user->name }}" />
 
     <div class="w-full">
         <x-content-card class="w-full">
-            <form method="POST" action="{{ route('owner.users.update', $user->id) }}" class="space-y-5 w-full">
+            <form method="POST" action="{{ route('admin.users.update', $user->id) }}" class="space-y-5 w-full">
                 @csrf
                 @method('PUT')
 
@@ -44,7 +44,7 @@
                     <button type="submit" class="rounded-lg bg-primary px-8 py-3 text-sm font-semibold text-white shadow-sm hover:bg-primaryDark transition">
                         Simpan Perubahan Akun
                     </button>
-                    <a href="{{ route('owner.users.index') }}" class="rounded-lg border border-border px-5 py-3 text-sm font-semibold hover:bg-appBg">
+                    <a href="{{ route('admin.users.index') }}" class="rounded-lg border border-border px-5 py-3 text-sm font-semibold hover:bg-appBg">
                         Batal
                     </a>
                 </div>

@@ -60,7 +60,7 @@ Route::middleware(['auth', 'role:petugas,admin,owner'])->prefix('petugas')->name
     Route::get('/daily-transactions/print', [Petugas\DailyTransactionController::class, 'printDaily'])->name('transactions.print-daily');
 });
 
-// Role Route Group: Admin Gudang (FR-2.1 - FR-2.4)
+// Role Route Group: Admin Gudang (FR-2.1 - FR-2.4 + FR-3.3)
 Route::middleware(['auth', 'role:admin,owner'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [Admin\DashboardController::class, 'index'])->name('dashboard');
 
@@ -74,18 +74,18 @@ Route::middleware(['auth', 'role:admin,owner'])->prefix('admin')->name('admin.')
     // FR-2.3: Status Barang Macet -> Siap Lelang & Rak Lelang
     Route::get('/auction', [Admin\AuctionController::class, 'index'])->name('auction.index');
     Route::patch('/auction/{item}/mark-siap-lelang', [Admin\AuctionController::class, 'markSiapLelang'])->name('auction.mark-siap-lelang');
+
+    // FR-3.3: Kelola Akun Pengguna (Moved from Owner to Admin)
+    Route::resource('users', Admin\UserController::class);
 });
 
-// Role Route Group: Owner Pemilik/Pengawas (FR-3.1 - FR-3.4)
+// Role Route Group: Owner Pemilik/Pengawas (FR-3.1, FR-3.2, FR-3.4)
 Route::middleware(['auth', 'role:owner'])->prefix('owner')->name('owner.')->group(function () {
     Route::get('/dashboard', [Owner\DashboardController::class, 'index'])->name('dashboard');
 
     // FR-3.2: Parameter Sistem
     Route::get('/settings', [Owner\SettingController::class, 'index'])->name('settings.index');
     Route::put('/settings', [Owner\SettingController::class, 'update'])->name('settings.update');
-
-    // FR-3.3: Kelola Akun Pengguna
-    Route::resource('users', Owner\UserController::class);
 
     // FR-3.4: Laporan Transaksi, Lelang, & Laba/Rugi Real-Time
     Route::get('/reports', [Owner\ReportController::class, 'index'])->name('reports.index');

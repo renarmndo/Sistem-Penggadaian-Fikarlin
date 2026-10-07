@@ -1,7 +1,7 @@
-<x-app-layout title="Manajemen Pengguna" role="owner">
+<x-app-layout title="Manajemen Pengguna" role="admin">
     <x-page-header title="Manajemen Akun Pengguna (FR-3.3)" description="Kelola hak akses pengguna sistem untuk Owner, Admin Gudang, dan Petugas Kasir.">
         <x-slot:actions>
-            <a href="{{ route('owner.users.create') }}" class="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white hover:bg-primaryDark">
+            <a href="{{ route('admin.users.create') }}" class="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white hover:bg-primaryDark">
                 + Tambah Akun Pengguna
             </a>
         </x-slot:actions>
@@ -31,9 +31,9 @@
                                 </span>
                             </td>
                             <td class="px-4 py-3 text-right space-x-2">
-                                <a href="{{ route('owner.users.edit', $u->id) }}" class="text-xs font-semibold text-primary hover:underline">Edit</a>
+                                <a href="{{ route('admin.users.edit', $u->id) }}" class="text-xs font-semibold text-primary hover:underline">Edit</a>
                                 @if ($u->id !== auth()->id())
-                                    <form method="POST" action="{{ route('owner.users.destroy', $u->id) }}" class="inline" onsubmit="return confirm('Yakin ingin menghapus akun ini?')">
+                                    <form method="POST" action="{{ route('admin.users.destroy', $u->id) }}" class="inline" onsubmit="return confirm('Yakin ingin menghapus akun ini?')">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="text-xs font-semibold text-danger hover:underline">Hapus</button>

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Owner;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
@@ -13,12 +13,12 @@ class UserController extends Controller
     public function index()
     {
         $users = User::latest()->paginate(15);
-        return view('owner.users.index', compact('users'));
+        return view('admin.users.index', compact('users'));
     }
 
     public function create()
     {
-        return view('owner.users.create');
+        return view('admin.users.create');
     }
 
     public function store(Request $request)
@@ -39,12 +39,12 @@ class UserController extends Controller
             'is_active' => $request->boolean('is_active', true),
         ]);
 
-        return redirect()->route('owner.users.index')->with('success', 'Akun pengguna berhasil ditambahkan.');
+        return redirect()->route('admin.users.index')->with('success', 'Akun pengguna berhasil ditambahkan.');
     }
 
     public function edit(User $user)
     {
-        return view('owner.users.edit', compact('user'));
+        return view('admin.users.edit', compact('user'));
     }
 
     public function update(Request $request, User $user)
@@ -70,7 +70,7 @@ class UserController extends Controller
 
         $user->update($data);
 
-        return redirect()->route('owner.users.index')->with('success', 'Akun pengguna berhasil diperbarui.');
+        return redirect()->route('admin.users.index')->with('success', 'Akun pengguna berhasil diperbarui.');
     }
 
     public function destroy(User $user)
@@ -81,6 +81,6 @@ class UserController extends Controller
 
         $user->delete();
 
-        return redirect()->route('owner.users.index')->with('success', 'Akun pengguna berhasil dihapus.');
+        return redirect()->route('admin.users.index')->with('success', 'Akun pengguna berhasil dihapus.');
     }
 }

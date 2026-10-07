@@ -1,9 +1,9 @@
-<x-app-layout title="Tambah Akun Pengguna" role="owner">
+<x-app-layout title="Tambah Akun Pengguna" role="admin">
     <x-page-header title="Tambah Akun Pengguna Baru (FR-3.3)" description="Buat akun login untuk Owner, Admin Gudang, atau Petugas Kasir." />
 
     <div class="w-full">
         <x-content-card class="w-full">
-            <form method="POST" action="{{ route('owner.users.store') }}" class="space-y-5 w-full">
+            <form method="POST" action="{{ route('admin.users.store') }}" class="space-y-5 w-full">
                 @csrf
                 <div class="grid gap-5 md:grid-cols-2">
                     <div>
@@ -42,7 +42,7 @@
                     <button type="submit" class="rounded-lg bg-primary px-8 py-3 text-sm font-semibold text-white shadow-sm hover:bg-primaryDark transition">
                         Simpan Akun Pengguna
                     </button>
-                    <a href="{{ route('owner.users.index') }}" class="rounded-lg border border-border px-5 py-3 text-sm font-semibold hover:bg-appBg">
+                    <a href="{{ route('admin.users.index') }}" class="rounded-lg border border-border px-5 py-3 text-sm font-semibold hover:bg-appBg">
                         Batal
                     </a>
                 </div>

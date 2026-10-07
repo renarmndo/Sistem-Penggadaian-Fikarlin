@@ -12,16 +12,16 @@ Sistem informasi manajemen penggadaian berbasis web menggunakan Laravel 11.
 - ✅ Print SBG & Nota Otomatis
 - ✅ Buku Kas & Riwayat Transaksi Harian
 
-### 📦 Admin Gudang (FR-2)
+### 📦 Admin Gudang (FR-2 + FR-3.3)
 - ✅ Kelola Stok & Lokasi Rak Gudang
 - ✅ Monitoring Kontrak Jatuh Tempo
 - ✅ Update Status: Macet → Siap Lelang
 - ✅ Modul Penjualan Lelang
+- ✅ **Manajemen Akun Pengguna (Role Management)**
 
 ### 👨‍💼 Owner/Pengawas (FR-3)
 - ✅ Dashboard Real-Time (Piutang, Laba/Rugi, Transaksi)
 - ✅ Parameter Sistem (Bunga, Biaya Admin, Logo)
-- ✅ Kelola Akun Pengguna (Role Management)
 - ✅ Laporan Transaksi & Lelang (Export/Print)
 
 ## 🛠️ Tech Stack
