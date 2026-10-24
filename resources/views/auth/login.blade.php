@@ -52,6 +52,31 @@
                     Masuk ke Sistem
                 </button>
             </form>
+
+            <section aria-labelledby="demo-accounts-heading" class="border-t border-border pt-4">
+                <h2 id="demo-accounts-heading" class="text-sm font-semibold text-primary">Akun Demo</h2>
+                <p class="mt-1 text-xs text-text-secondary">Gunakan akun berikut sesuai data seeder.</p>
+
+                <dl class="mt-3 space-y-2.5 text-xs">
+                    <div class="flex flex-wrap justify-between gap-x-4 gap-y-1">
+                        <dt class="text-text-secondary">Petugas</dt>
+                        <dd class="font-medium text-text-primary break-all">petugas@buulolo.id</dd>
+                    </div>
+                    <div class="flex flex-wrap justify-between gap-x-4 gap-y-1">
+                        <dt class="text-text-secondary">Admin</dt>
+                        <dd class="font-medium text-text-primary break-all">admin@buulolo.id</dd>
+                    </div>
+                    <div class="flex flex-wrap justify-between gap-x-4 gap-y-1">
+                        <dt class="text-text-secondary">Owner</dt>
+                        <dd class="font-medium text-text-primary break-all">owner@buulolo.id</dd>
+                    </div>
+                </dl>
+
+                <p class="mt-3 flex flex-wrap items-center justify-between gap-2 rounded-lg border border-border bg-app-bg px-3 py-2.5 text-xs">
+                    <span class="text-text-secondary">Kata sandi semua akun</span>
+                    <code class="font-semibold text-primary">password</code>
+                </p>
+            </section>
         </div>
     </div>
 </body>
