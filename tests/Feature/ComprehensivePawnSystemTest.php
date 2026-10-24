@@ -4,7 +4,6 @@ namespace Tests\Feature;
 
 use App\Models\AppSetting;
 use App\Models\Customer;
-use App\Models\InventoryMutation;
 use App\Models\Item;
 use App\Models\PawnPayment;
 use App\Models\PawnTransaction;
@@ -19,7 +18,9 @@ class ComprehensivePawnSystemTest extends TestCase
     use RefreshDatabase;
 
     protected User $owner;
+
     protected User $admin;
+
     protected User $petugas;
 
     protected function setUp(): void
@@ -185,17 +186,29 @@ class ComprehensivePawnSystemTest extends TestCase
         $this->assertEquals(Item::LOCATION_RAK_LELANG, $item->location);
     }
 
-    public function test_owner_can_update_settings(): void
+    public function test_admin_can_update_settings(): void
     {
-        $response = $this->actingAs($this->owner)->put(route('owner.settings.update'), [
+        $response = $this->actingAs($this->admin)->put(route('admin.settings.update'), [
             'default_interest_rate' => 12,
             'penalty_rate_per_day' => 0.6,
             'default_tenor_days' => 15,
             'plafon_percentage' => 75,
         ]);
 
-        $response->assertRedirect(route('owner.settings.index'));
+        $response->assertRedirect(route('admin.settings.index'));
 
         $this->assertEquals(12, AppSetting::getValue(AppSetting::KEY_INTEREST_RATE));
+    }
+
+    public function test_owner_cannot_update_settings(): void
+    {
+        $this->actingAs($this->owner)
+            ->put(route('admin.settings.update'), [
+                'default_interest_rate' => 12,
+                'penalty_rate_per_day' => 0.6,
+                'default_tenor_days' => 15,
+                'plafon_percentage' => 75,
+            ])
+            ->assertForbidden();
     }
 }

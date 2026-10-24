@@ -52,14 +52,6 @@
                     Masuk ke Sistem
                 </button>
             </form>
-
-            {{-- Demo Hint --}}
-            <div class="mt-6 pt-4 border-t border-border text-center text-xs text-textSecondary space-y-1">
-                <p class="font-semibold text-textPrimary">Demo Akun Login:</p>
-                <p>Owner: <span class="font-mono text-primary">owner@buulolo.id</span> (pass: password)</p>
-                <p>Admin: <span class="font-mono text-primary">admin@buulolo.id</span> (pass: password)</p>
-                <p>Petugas: <span class="font-mono text-primary">petugas@buulolo.id</span> (pass: password)</p>
-            </div>
         </div>
     </div>
 </body>

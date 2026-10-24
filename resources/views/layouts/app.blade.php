@@ -21,7 +21,7 @@
 <body class="min-h-screen bg-appBg text-textPrimary antialiased" x-data="{ sidebarOpen: window.innerWidth >= 1024 }">
     <div class="flex min-h-screen w-full relative">
         {{-- Sidebar --}}
-        <x-sidebar :role="$role" />
+        <x-sidebar :role="auth()->user()->role ?? $role" />
 
         {{-- Main Content Container (Expands to 100% full width when sidebar is closed) --}}
         <div

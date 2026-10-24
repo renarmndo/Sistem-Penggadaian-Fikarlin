@@ -246,70 +246,68 @@ Topbar berisi tombol toggle sidebar, breadcrumb/judul halaman, pencarian cepat, 
 
 ### 6.1 Menu Owner
 
-Owner fokus pada dashboard eksekutif, rekap transaksi, laporan laba/rugi, kelola akun pengguna, dan pengaturan parameter sistem.
+Owner fokus pada dashboard eksekutif dan laporan keuangan. Parameter sistem & manajemen pengguna dikelola oleh Admin.
 
 | Menu | Isi Halaman | Aksi Utama |
 |---|---|---|
 | Dashboard | Ringkasan eksekutif (total piutang aktif, total barang gudang, estimasi bunga masuk) | Lihat detail (FR-3.1) |
-| Rekap Transaksi | Rekap terpusat seluruh transaksi gadai, pelunasan, perpanjangan, pembelian, dan lelang | Filter, cetak (FR-3.4) |
-| Laporan Laba/Rugi | Laporan keuangan & laba/rugi real-time periode terpilih | Cetak/export PDF (FR-3.4) |
-| Pengaturan Parameter | Parameter sistem: persentase bunga, rate denda, tenor baku | Ubah & simpan (FR-3.2) |
-| Manajemen Pengguna | Kelola akun pengguna sistem (Owner, Admin, Petugas) | Tambah/Ubah/Nonaktifkan (FR-3.3) |
+| Laporan & Laba/Rugi | Laporan keuangan & laba/rugi real-time periode terpilih | Filter, cetak/export (FR-3.4) |
 
 Urutan sidebar Owner:
 
 ```txt
 Dashboard
-Rekap Transaksi
-Laporan Laba/Rugi
-Pengaturan Parameter
-Manajemen Pengguna
+Laporan & Laba/Rugi
 ```
 
 ### 6.2 Menu Admin
 
-Admin fokus pada kelola stok & lokasi rak gudang, monitoring jatuh tempo, dan status barang macet ke siap lelang.
+Admin fokus pada kelola stok & lokasi rak gudang, status barang macet ke siap lelang, parameter sistem, dan akun pengguna.
 
 | Menu | Isi Halaman | Aksi Utama |
 |---|---|---|
-| Dashboard | Ringkasan stok gudang, alert mendekati/melewati jatuh tempo | Quick Action (FR-2.2) |
+| Dashboard | Ringkasan stok gudang, alert mendekati/melewati jatuh tempo | Quick Action |
 | Lokasi & Stok Gudang | Kelola stok dan posisi/rak barang jaminan di gudang | Detail & update lokasi (FR-2.1) |
-| Kontrak Jatuh Tempo | Daftar kontrak gadai mendekati & melewati jatuh tempo | Monitoring (FR-2.2) |
 | Siap Jual / Lelang | Ubah status barang macet/wanprestasi menjadi status siap jual/lelang | Ubah status & verifikasi (FR-2.3) |
-| Penjualan Lelang | Catat transaksi penjualan barang lelang kepada pembeli | Input penjualan (FR-2.4) |
+| Manajemen Pengguna | Kelola akun pengguna sistem (Owner, Admin, Petugas) | Tambah/Ubah/Nonaktifkan (FR-3.3) |
+| Pengaturan Parameter | Parameter sistem: persentase bunga, rate denda, tenor baku, plafon | Ubah & simpan (FR-3.2) |
 
 Urutan sidebar Admin:
 
 ```txt
 Dashboard
 Lokasi & Stok Gudang
-Kontrak Jatuh Tempo
 Siap Jual / Lelang
-Penjualan Lelang
+Manajemen Pengguna
+Pengaturan Parameter
 ```
 
 ### 6.3 Menu Petugas
 
-Petugas fokus pada operasional front-office: master nasabah, gadai baru (cetak SBG), pelunasan & perpanjangan, dan pembelian barang bekas.
+Petugas fokus pada operasional front-office: master nasabah, gadai baru (cetak SBG), pelunasan & perpanjangan, pembelian barang bekas, penjualan lelang, dan monitoring kontrak jatuh tempo.
 
 | Menu | Isi Halaman | Aksi Utama |
 |---|---|---|
 | Dashboard | Shortcut transaksi cepat, riwayat transaksi hari ini | Mulai transaksi |
-| Data Nasabah | Input dan kelola master data nasabah/pelanggan | Tambah/Ubah (FR-1.1) |
+| Data Nasabah (KTP) | Input dan kelola master data nasabah/pelanggan | Tambah/Ubah (FR-1.1) |
 | Gadai Baru | Form transaksi gadai baru (taksiran, plafon, tenor, hitung bunga) | Submit, barcode, cetak SBG (FR-1.2, FR-1.5) |
 | Pelunasan & Perpanjangan | Scan Barcode SBG, denda otomatis, tebus lunas (`LUNAS`) / perpanjangan (`DIPERPANJANG`) | Simpan, cetak struk/nota (FR-1.3, FR-1.5) |
 | Beli Barang Bekas | Form pembelian barang elektronik bekas dari nasabah | Simpan (kas keluar & etalase), cetak nota (FR-1.4, FR-1.5) |
 | Penjualan Lelang | Modul penjualan barang lelang di front-office | Input harga jual -> update `TERJUAL` (FR-2.4) |
+| Kontrak Jatuh Tempo | Daftar kontrak gadai mendekati & melewati jatuh tempo | Monitoring & filter (FR-2.2) |
+| Riwayat Kasir Harian | Rekap transaksi kasir per hari (kas masuk/kas keluar) | Filter, cetak (FR-1.4) |
 
 Urutan sidebar Petugas:
 
 ```txt
 Dashboard
-Data Nasabah
+Data Nasabah (KTP)
 Gadai Baru
 Pelunasan & Perpanjangan
 Beli Barang Bekas
 Penjualan Lelang
+Kontrak Jatuh Tempo
+Riwayat Kasir Harian
 ```
 
 

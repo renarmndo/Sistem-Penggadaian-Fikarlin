@@ -7,14 +7,13 @@
         'owner' => [
             ['route' => 'owner.dashboard', 'label' => 'Dashboard', 'icon' => 'home'],
             ['route' => 'owner.reports.index', 'label' => 'Laporan & Laba/Rugi', 'icon' => 'chart'],
-            ['route' => 'owner.settings.index', 'label' => 'Pengaturan Parameter', 'icon' => 'settings'],
         ],
         'admin' => [
             ['route' => 'admin.dashboard', 'label' => 'Dashboard', 'icon' => 'home'],
             ['route' => 'admin.warehouse.index', 'label' => 'Lokasi & Stok Gudang', 'icon' => 'package'],
-            ['route' => 'admin.duedate.index', 'label' => 'Kontrak Jatuh Tempo', 'icon' => 'clock'],
             ['route' => 'admin.auction.index', 'label' => 'Siap Jual / Lelang', 'icon' => 'gavel'],
             ['route' => 'admin.users.index', 'label' => 'Manajemen Pengguna', 'icon' => 'users'],
+            ['route' => 'admin.settings.index', 'label' => 'Pengaturan Parameter', 'icon' => 'settings'],
         ],
         default => [
             ['route' => 'petugas.dashboard', 'label' => 'Dashboard', 'icon' => 'home'],
@@ -23,6 +22,7 @@
             ['route' => 'petugas.payments.search', 'label' => 'Pelunasan & Perpanjangan', 'icon' => 'refresh'],
             ['route' => 'petugas.purchases.create', 'label' => 'Beli Barang Bekas', 'icon' => 'phone'],
             ['route' => 'petugas.auction.index', 'label' => 'Penjualan Lelang', 'icon' => 'gavel'],
+            ['route' => 'petugas.duedate.index', 'label' => 'Kontrak Jatuh Tempo', 'icon' => 'clock'],
             ['route' => 'petugas.transactions.daily', 'label' => 'Riwayat Kasir Harian', 'icon' => 'history'],
         ],
     };

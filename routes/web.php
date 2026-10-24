@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Owner;
 use App\Http\Controllers\Petugas;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -11,13 +12,15 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     if (Auth::check()) {
         $user = Auth::user();
+
         return match ($user->role) {
-            \App\Models\User::ROLE_OWNER => redirect()->route('owner.dashboard'),
-            \App\Models\User::ROLE_ADMIN => redirect()->route('admin.dashboard'),
-            \App\Models\User::ROLE_PETUGAS => redirect()->route('petugas.dashboard'),
+            User::ROLE_OWNER => redirect()->route('owner.dashboard'),
+            User::ROLE_ADMIN => redirect()->route('admin.dashboard'),
+            User::ROLE_PETUGAS => redirect()->route('petugas.dashboard'),
             default => redirect()->route('login'),
         };
     }
+
     return redirect()->route('login');
 });
 
@@ -60,16 +63,18 @@ Route::middleware(['auth', 'role:petugas,admin,owner'])->prefix('petugas')->name
     Route::get('/daily-transactions/print', [Petugas\DailyTransactionController::class, 'printDaily'])->name('transactions.print-daily');
 });
 
-// Role Route Group: Admin Gudang (FR-2.1 - FR-2.4 + FR-3.3)
+// FR-2.2: Monitoring Kontrak Jatuh Tempo (Khusus Petugas Front-Office)
+Route::middleware(['auth', 'role:petugas'])->prefix('petugas')->name('petugas.')->group(function () {
+    Route::get('/duedate', [Petugas\DueDateController::class, 'index'])->name('duedate.index');
+});
+
+// Role Route Group: Admin Gudang (FR-2.1, FR-2.3, FR-2.4 + FR-3.3)
 Route::middleware(['auth', 'role:admin,owner'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [Admin\DashboardController::class, 'index'])->name('dashboard');
 
     // FR-2.1: Kelola Stok & Lokasi Rak Gudang
     Route::get('/warehouse', [Admin\WarehouseController::class, 'index'])->name('warehouse.index');
     Route::patch('/warehouse/{item}/location', [Admin\WarehouseController::class, 'updateLocation'])->name('warehouse.update-location');
-
-    // FR-2.2: Monitoring Kontrak Jatuh Tempo
-    Route::get('/duedate', [Admin\DueDateController::class, 'index'])->name('duedate.index');
 
     // FR-2.3: Status Barang Macet -> Siap Lelang & Rak Lelang
     Route::get('/auction', [Admin\AuctionController::class, 'index'])->name('auction.index');
@@ -79,13 +84,15 @@ Route::middleware(['auth', 'role:admin,owner'])->prefix('admin')->name('admin.')
     Route::resource('users', Admin\UserController::class);
 });
 
-// Role Route Group: Owner Pemilik/Pengawas (FR-3.1, FR-3.2, FR-3.4)
+// FR-3.2: Parameter Sistem (Khusus Admin)
+Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/settings', [Admin\SettingController::class, 'index'])->name('settings.index');
+    Route::put('/settings', [Admin\SettingController::class, 'update'])->name('settings.update');
+});
+
+// Role Route Group: Owner Pemilik/Pengawas (FR-3.1, FR-3.4)
 Route::middleware(['auth', 'role:owner'])->prefix('owner')->name('owner.')->group(function () {
     Route::get('/dashboard', [Owner\DashboardController::class, 'index'])->name('dashboard');
-
-    // FR-3.2: Parameter Sistem
-    Route::get('/settings', [Owner\SettingController::class, 'index'])->name('settings.index');
-    Route::put('/settings', [Owner\SettingController::class, 'update'])->name('settings.update');
 
     // FR-3.4: Laporan Transaksi, Lelang, & Laba/Rugi Real-Time
     Route::get('/reports', [Owner\ReportController::class, 'index'])->name('reports.index');

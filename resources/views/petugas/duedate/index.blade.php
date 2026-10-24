@@ -1,4 +1,4 @@
-<x-app-layout title="Monitoring Jatuh Tempo" role="admin">
+<x-app-layout title="Monitoring Jatuh Tempo" role="petugas">
     <x-page-header title="Monitoring Kontrak Jatuh Tempo (FR-2.2)" description="Sistem monitoring jatuh tempo berbasis tanggal server untuk mendeteksi status aman, mendekati jatuh tempo, maupun wanprestasi (macet)." />
 
     {{-- Ringkasan Metrik KPI Jatuh Tempo --}}
@@ -46,7 +46,7 @@
 
     {{-- Panel Filter Profesional --}}
     <x-content-card title="Filter & Pencarian Kontrak Jatuh Tempo" class="w-full mb-6">
-        <form method="GET" action="{{ route('admin.duedate.index') }}" class="space-y-4 w-full">
+        <form method="GET" action="{{ route('petugas.duedate.index') }}" class="space-y-4 w-full">
             <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 w-full">
                 {{-- 1. Kata Kunci --}}
                 <div>
@@ -85,7 +85,7 @@
             </div>
 
             <div class="flex items-center justify-end gap-2 pt-2 border-t border-border">
-                <a href="{{ route('admin.duedate.index') }}" class="rounded-lg border border-border px-4 py-2 text-xs font-semibold text-textSecondary hover:bg-appBg transition">
+                <a href="{{ route('petugas.duedate.index') }}" class="rounded-lg border border-border px-4 py-2 text-xs font-semibold text-textSecondary hover:bg-appBg transition">
                     Reset Filter
                 </a>
                 <button type="submit" class="rounded-lg bg-primary px-6 py-2 text-xs font-bold text-white shadow-sm hover:bg-primaryDark transition">

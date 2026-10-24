@@ -37,9 +37,9 @@ Dokumen ini merumuskan kebutuhan produk untuk sistem usulan yang mengotomatisasi
 
 | Role | Cakupan Tanggung Jawab |
 |---|---|
-| **Petugas** (Front-Office/Kasir) | Input data nasabah, transaksi gadai baru, perpanjangan, pelunasan, pembelian barang bekas, cetak SBG/kuitansi/nota |
-| **Admin** (Gudang & Pengelola Operasional) | Kelola stok & lokasi rak gudang, monitoring jatuh tempo, ubah status barang macet → siap lelang, catat penjualan lelang |
-| **Owner** (Pemilik/Pengawas) | Dashboard eksekutif, atur parameter sistem (bunga, denda, tenor), kelola akun pengguna, akses & cetak laporan |
+| **Petugas** (Front-Office/Kasir) | Input data nasabah, transaksi gadai baru, perpanjangan, pelunasan, pembelian barang bekas, monitoring kontrak jatuh tempo, cetak SBG/kuitansi/nota |
+| **Admin** (Gudang & Pengelola Operasional) | Kelola stok & lokasi rak gudang, ubah status barang macet → siap lelang, atur parameter sistem (bunga, denda, tenor), kelola akun pengguna |
+| **Owner** (Pemilik/Pengawas) | Dashboard eksekutif, akses & cetak laporan transaksi dan laba/rugi |
 
 ---
 
@@ -51,17 +51,17 @@ Dokumen ini merumuskan kebutuhan produk untuk sistem usulan yang mengotomatisasi
 - **FR-1.3**: Catat transaksi perpanjangan bunga, pembayaran denda, dan pelunasan gadai.
 - **FR-1.4**: Catat transaksi pembelian barang elektronik bekas dari nasabah.
 - **FR-1.5**: Cetak Surat Bukti Gadai (SBG), kuitansi pelunasan, dan nota pembelian.
+- **FR-2.2**: Pantau daftar kontrak gadai yang mendekati dan telah melewati jatuh tempo (dipindahkan dari Admin).
 
 ### 4.2 Role Admin (Gudang & Pengelola Operasional)
 - **FR-2.1**: Kelola stok dan lokasi rak/posisi barang jaminan di gudang.
-- **FR-2.2**: Pantau daftar kontrak gadai yang mendekati dan telah melewati jatuh tempo.
 - **FR-2.3**: Ubah status barang macet/jatuh tempo menjadi status *siap jual/lelang*.
 - **FR-2.4**: Catat transaksi penjualan barang lelang kepada pembeli.
+- **FR-3.2**: Atur parameter sistem (persentase bunga, rate denda, tenor baku) — dipindahkan dari Owner.
+- **FR-3.3**: Kelola akun pengguna sistem (Owner, Admin, Petugas) — dipindahkan dari Owner.
 
 ### 4.3 Role Owner (Pemilik/Pengawas)
 - **FR-3.1**: Akses dashboard ringkasan eksekutif (total piutang aktif, total barang di gudang, estimasi bunga masuk).
-- **FR-3.2**: Atur parameter sistem (persentase bunga, rate denda, tenor baku).
-- **FR-3.3**: Kelola akun pengguna sistem (Owner, Admin, Petugas).
 - **FR-3.4**: Lihat dan cetak laporan transaksi gadai, laporan inventaris barang lelang, dan laporan laba/rugi periode terpilih.
 
 ---
@@ -185,7 +185,7 @@ Seluruh transaksi dari berbagai modul (beli bekas, gadai baru, pelunasan, perpan
 
 ---
 
-## 8. Parameter Sistem yang Dapat Dikonfigurasi Owner
+## 8. Parameter Sistem yang Dapat Dikonfigurasi Admin
 
 - Persentase bunga gadai
 - Rate/tarif denda keterlambatan (per hari/periode)

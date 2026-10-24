@@ -36,14 +36,10 @@
                     <span class="font-semibold text-sm text-textPrimary">📊 Laporan Transaksi & Laba/Rugi Real-Time (FR-3.4)</span>
                     <span class="text-xs text-primary font-bold">Buka Laporan →</span>
                 </a>
-                <a href="{{ route('owner.settings.index') }}" class="flex items-center justify-between p-3 rounded-lg border border-border bg-appBg hover:bg-white transition">
-                    <span class="font-semibold text-sm text-textPrimary">⚙️ Pengaturan Parameter Bunga, Denda, & Tenor (FR-3.2)</span>
-                    <span class="text-xs text-primary font-bold">Atur Parameter →</span>
-                </a>
-                <a href="{{ route('owner.users.index') }}" class="flex items-center justify-between p-3 rounded-lg border border-border bg-appBg hover:bg-white transition">
-                    <span class="font-semibold text-sm text-textPrimary">👥 Kelola Akun Pengguna Admin & Petugas (FR-3.3)</span>
-                    <span class="text-xs text-primary font-bold">Kelola Akun →</span>
-                </a>
+                <p class="flex items-center justify-between p-3 rounded-lg border border-dashed border-border bg-appBg/50">
+                    <span class="font-semibold text-sm text-textSecondary">⚙️ Parameter Sistem & 👥 Manajemen Pengguna dikelola oleh Admin</span>
+                    <span class="text-xs text-textSecondary font-bold">Akses Admin</span>
+                </p>
             </div>
         </x-content-card>
 

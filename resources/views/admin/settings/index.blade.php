@@ -1,9 +1,9 @@
-<x-app-layout title="Pengaturan Parameter" role="owner">
+<x-app-layout title="Pengaturan Parameter" role="admin">
     <x-page-header title="Pengaturan Parameter Sistem (FR-3.2)" description="Konfigurasi persentase bunga default, rate denda keterlambatan, tenor baku, dan persentase plafon." />
 
     <div class="w-full">
         <x-content-card class="w-full">
-            <form method="POST" action="{{ route('owner.settings.update') }}" class="space-y-6 w-full">
+            <form method="POST" action="{{ route('admin.settings.update') }}" class="space-y-6 w-full">
                 @csrf
                 @method('PUT')
 

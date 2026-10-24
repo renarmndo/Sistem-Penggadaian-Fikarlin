@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Petugas;
 
 use App\Http\Controllers\Controller;
 use App\Models\PawnTransaction;
@@ -22,7 +22,7 @@ class DueDateController extends Controller
             ->whereIn('status', [PawnTransaction::STATUS_TERSIMPAN, PawnTransaction::STATUS_DIPERPANJANG]);
 
         // Filter Status Kontrak
-        if ($status !== 'all' && !empty($status)) {
+        if ($status !== 'all' && ! empty($status)) {
             $query->where('status', $status);
         }
 
@@ -51,16 +51,16 @@ class DueDateController extends Controller
         if ($search) {
             $query->where(function ($q) use ($search) {
                 $q->where('ticket_number', 'like', "%{$search}%")
-                  ->orWhere('barcode_code', 'like', "%{$search}%")
-                  ->orWhereHas('customer', function ($cq) use ($search) {
-                      $cq->where('name', 'like', "%{$search}%")
-                         ->orWhere('phone', 'like', "%{$search}%")
-                         ->orWhere('identity_number', 'like', "%{$search}%");
-                  })
-                  ->orWhereHas('item', function ($iq) use ($search) {
-                      $iq->where('name', 'like', "%{$search}%")
-                         ->orWhere('item_code', 'like', "%{$search}%");
-                  });
+                    ->orWhere('barcode_code', 'like', "%{$search}%")
+                    ->orWhereHas('customer', function ($cq) use ($search) {
+                        $cq->where('name', 'like', "%{$search}%")
+                            ->orWhere('phone', 'like', "%{$search}%")
+                            ->orWhere('identity_number', 'like', "%{$search}%");
+                    })
+                    ->orWhereHas('item', function ($iq) use ($search) {
+                        $iq->where('name', 'like', "%{$search}%")
+                            ->orWhere('item_code', 'like', "%{$search}%");
+                    });
             });
         }
 
@@ -79,6 +79,10 @@ class DueDateController extends Controller
                 ->sum('loan_amount'),
         ];
 
-        return view('admin.duedate.index', compact('transactions', 'today', 'stats', 'dueScope'));
+        return view('petugas.duedate.index', compact('transactions', 'today', 'stats', 'dueScope'));
     }
 }
+
+
+
+

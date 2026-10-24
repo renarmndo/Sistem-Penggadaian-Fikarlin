@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Owner;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\AppSetting;
@@ -15,7 +15,7 @@ class SettingController extends Controller
         $defaultTenor = AppSetting::getValue(AppSetting::KEY_DEFAULT_TENOR_DAYS, 30);
         $plafonPercentage = AppSetting::getValue(AppSetting::KEY_PLAFON_PERCENTAGE, 80);
 
-        return view('owner.settings.index', compact(
+        return view('admin.settings.index', compact(
             'interestRate',
             'penaltyRate',
             'defaultTenor',
@@ -37,6 +37,6 @@ class SettingController extends Controller
         AppSetting::setValue(AppSetting::KEY_DEFAULT_TENOR_DAYS, $validated['default_tenor_days'], 'Tenor Baku (Hari)');
         AppSetting::setValue(AppSetting::KEY_PLAFON_PERCENTAGE, $validated['plafon_percentage'], 'Batas Plafon Pinjaman (%)');
 
-        return redirect()->route('owner.settings.index')->with('success', 'Parameter sistem (bunga, denda, tenor, plafon) berhasil diperbarui.');
+        return redirect()->route('admin.settings.index')->with('success', 'Parameter sistem (bunga, denda, tenor, plafon) berhasil diperbarui.');
     }
 }
