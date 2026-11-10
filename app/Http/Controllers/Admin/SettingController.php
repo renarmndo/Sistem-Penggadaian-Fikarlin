@@ -28,7 +28,7 @@ class SettingController extends Controller
         $validated = $request->validate([
             'default_interest_rate' => ['required', 'numeric', 'min:0', 'max:100'],
             'penalty_rate_per_day' => ['required', 'numeric', 'min:0', 'max:100'],
-            'default_tenor_days' => ['required', 'integer', 'min:1'],
+            'default_tenor_days' => ['required', 'integer', 'min:1', 'max:365'],
             'plafon_percentage' => ['required', 'numeric', 'min:1', 'max:100'],
         ]);
 

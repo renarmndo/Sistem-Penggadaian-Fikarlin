@@ -4,15 +4,16 @@
     <div class="w-full" x-data="{
         estimatedValue: 0,
         loanAmount: 0,
-        interestRate: 10,
-        plafonPercentage: 80,
-        tenorDays: 30,
+        interestRate: @js((float) $interestRate),
+        plafonPercentage: @js((float) $plafonPercentage),
+        tenorDays: @js((int) $defaultTenor),
         get maxPlafon() {
             return Math.round((this.estimatedValue * this.plafonPercentage) / 100);
         },
-        get interestAmount() {
-            return Math.round((this.loanAmount * this.interestRate) / 100);
-        },
+         get interestAmount() {
+             const periods = Math.max(1, Math.ceil(Number(this.tenorDays || 0) / 30));
+             return Math.round((this.loanAmount * this.interestRate * periods) / 100);
+         },
         get totalAmount() {
             return Number(this.loanAmount) + Number(this.interestAmount);
         },
@@ -99,7 +100,7 @@
                     <div>
                         <label class="block text-sm font-medium text-textPrimary mb-1">Nilai Taksiran Barang (Rp) <span class="text-danger">*</span></label>
                         <input type="number" name="estimated_value" x-model.number="estimatedValue" @input="updatePlafon()" required min="1000" step="1000" placeholder="0" class="w-full rounded-lg border border-border bg-white px-3 py-2.5 text-base font-bold text-primary outline-none focus:border-primary" />
-                        <p class="mt-1 text-xs text-textSecondary">Batas Plafon Maksimal (80%): <span class="font-bold text-primary" x-text="'Rp ' + maxPlafon.toLocaleString('id-ID')"></span></p>
+                        <p class="mt-1 text-xs text-textSecondary">Batas Plafon Maksimal (<span x-text="plafonPercentage"></span>%): <span class="font-bold text-primary" x-text="'Rp ' + maxPlafon.toLocaleString('id-ID')"></span></p>
                     </div>
 
                     <div>

@@ -7,6 +7,7 @@ use App\Models\Customer;
 use App\Models\InventoryMutation;
 use App\Models\Item;
 use App\Models\PawnTransaction;
+use App\Models\AppSetting;
 use App\Services\BarcodeGeneratorService;
 use App\Services\InventoryMutationService;
 use App\Services\PawnCalculationService;
@@ -43,7 +44,11 @@ class PawnTransactionController extends Controller
     public function create()
     {
         $customers = Customer::orderBy('name')->take(50)->get();
-        return view('petugas.pawn.create', compact('customers'));
+        $interestRate = AppSetting::getValue(AppSetting::KEY_INTEREST_RATE, 10);
+        $plafonPercentage = AppSetting::getValue(AppSetting::KEY_PLAFON_PERCENTAGE, 80);
+        $defaultTenor = AppSetting::getValue(AppSetting::KEY_DEFAULT_TENOR_DAYS, 30);
+
+        return view('petugas.pawn.create', compact('customers', 'interestRate', 'plafonPercentage', 'defaultTenor'));
     }
 
     public function store(
@@ -61,17 +66,22 @@ class PawnTransactionController extends Controller
             'condition_notes' => ['nullable', 'string'],
             'estimated_value' => ['required', 'numeric', 'min:1000'],
             'loan_amount' => ['required', 'numeric', 'min:1000'],
-            'tenor_days' => ['nullable', 'integer', 'min:1'],
+            'tenor_days' => ['nullable', 'integer', 'min:1', 'max:365'],
             'notes' => ['nullable', 'string'],
         ]);
 
         return DB::transaction(function () use ($validated, $request, $calcService, $barcodeService, $mutationService) {
             $estimatedValue = (float) $validated['estimated_value'];
             $loanAmount = (float) $validated['loan_amount'];
-            $tenorDays = (int) ($validated['tenor_days'] ?? 30);
-            
-            $interestAmount = $calcService->calculateInterest($loanAmount);
-            $interestRate = (float) \App\Models\AppSetting::getValue(\App\Models\AppSetting::KEY_INTEREST_RATE, 10);
+            $plafon = $calcService->calculatePlafon($estimatedValue);
+            $tenorDays = (int) ($validated['tenor_days'] ?? AppSetting::getValue(AppSetting::KEY_DEFAULT_TENOR_DAYS, 30));
+
+            if ($loanAmount > $plafon) {
+                abort(422, 'Plafon pinjaman tidak boleh melebihi ' . number_format($plafon, 2, ',', '.'));
+            }
+
+            $interestRate = (float) AppSetting::getValue(AppSetting::KEY_INTEREST_RATE, 10);
+            $interestAmount = $calcService->calculateInterest($loanAmount, $interestRate, $tenorDays);
             $totalAmount = $loanAmount + $interestAmount;
             
             $pawnDate = Carbon::today();

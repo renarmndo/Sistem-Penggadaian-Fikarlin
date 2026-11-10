@@ -186,6 +186,66 @@ class ComprehensivePawnSystemTest extends TestCase
         $this->assertEquals(Item::LOCATION_RAK_LELANG, $item->location);
     }
 
+    public function test_server_rejects_loan_above_plafon(): void
+    {
+        $customer = Customer::create([
+            'identity_number' => '2222333344445555',
+            'name' => 'Rina',
+        ]);
+
+        $response = $this->actingAs($this->petugas)->post(route('petugas.pawn.store'), [
+            'customer_id' => $customer->id,
+            'item_name' => 'Laptop Asus',
+            'category' => 'Laptop',
+            'estimated_value' => 10000000,
+            'loan_amount' => 8000001,
+            'tenor_days' => 30,
+        ]);
+
+        $response->assertStatus(422);
+        $this->assertDatabaseCount('pawn_transactions', 0);
+    }
+
+    public function test_interest_increases_by_each_thirty_day_period(): void
+    {
+        $customer = Customer::create([
+            'identity_number' => '3333444455556666',
+            'name' => 'Dewi',
+        ]);
+
+        $this->actingAs($this->petugas)->post(route('petugas.pawn.store'), [
+            'customer_id' => $customer->id,
+            'item_name' => 'Laptop Lenovo',
+            'category' => 'Laptop',
+            'estimated_value' => 10000000,
+            'loan_amount' => 8000000,
+            'tenor_days' => 60,
+        ]);
+
+        $this->assertEquals(1600000, PawnTransaction::latest()->first()->interest_amount);
+    }
+
+    public function test_default_tenor_setting_is_used_when_omitted(): void
+    {
+        AppSetting::setValue(AppSetting::KEY_DEFAULT_TENOR_DAYS, 90, 'Tenor');
+        $customer = Customer::create([
+            'identity_number' => '4444555566667777',
+            'name' => 'Sari',
+        ]);
+
+        $this->actingAs($this->petugas)->post(route('petugas.pawn.store'), [
+            'customer_id' => $customer->id,
+            'item_name' => 'Kamera Canon',
+            'category' => 'Kamera',
+            'estimated_value' => 10000000,
+            'loan_amount' => 8000000,
+        ]);
+
+        $pawn = PawnTransaction::latest()->first();
+        $this->assertEquals(90, $pawn->tenor_days);
+        $this->assertEquals(Carbon::today()->addDays(90)->toDateString(), $pawn->due_date->toDateString());
+    }
+
     public function test_admin_can_update_settings(): void
     {
         $response = $this->actingAs($this->admin)->put(route('admin.settings.update'), [

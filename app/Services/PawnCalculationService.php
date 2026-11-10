@@ -19,10 +19,13 @@ class PawnCalculationService
     /**
      * Hitung nominal bunga berdasarkan pinjaman dan rate bunga.
      */
-    public function calculateInterest(float $loanAmount, ?float $rate = null): float
+    public function calculateInterest(float $loanAmount, ?float $rate = null, ?int $tenorDays = null): float
     {
         $rate = $rate ?? (float) AppSetting::getValue(AppSetting::KEY_INTEREST_RATE, 10);
-        return round(($loanAmount * $rate) / 100, 2);
+        $tenorDays = $tenorDays ?? (int) AppSetting::getValue(AppSetting::KEY_DEFAULT_TENOR_DAYS, 30);
+        $periods = max(1, (int) ceil($tenorDays / 30));
+
+        return round(($loanAmount * $rate * $periods) / 100, 2);
     }
 
     /**
