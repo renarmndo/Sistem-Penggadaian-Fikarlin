@@ -8,7 +8,7 @@
                 <div class="grid gap-5 md:grid-cols-2">
                     <div>
                         <label class="block text-sm font-medium text-textPrimary mb-1">Nomor KTP / Identitas <span class="text-danger">*</span></label>
-                        <input type="text" name="identity_number" value="{{ old('identity_number') }}" required placeholder="Contoh: 1234567890123456" class="w-full rounded-lg border border-border bg-white px-3 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 font-mono" />
+                        <input type="text" name="identity_number" value="{{ old('identity_number') }}" required minlength="16" maxlength="16" pattern="[0-9]{16}" inputmode="numeric" placeholder="Contoh: 1234567890123456" class="w-full rounded-lg border border-border bg-white px-3 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 font-mono" />
                         <p class="mt-1 text-xs text-textSecondary">Nomor KTP bersifat unik dan wajib untuk identifikasi transaksi.</p>
                     </div>
 

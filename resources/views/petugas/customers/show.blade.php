@@ -4,6 +4,13 @@
             <a href="{{ route('petugas.customers.edit', $customer->id) }}" class="rounded-lg border border-border px-4 py-2 text-sm font-semibold hover:bg-appBg">
                 Edit Nasabah
             </a>
+            <form method="POST" action="{{ route('petugas.customers.destroy', $customer->id) }}" class="inline" onsubmit="return confirm('Hapus data nasabah ini?')">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="rounded-lg border border-danger px-4 py-2 text-sm font-semibold text-danger hover:bg-danger/10">
+                    Hapus Nasabah
+                </button>
+            </form>
             <a href="{{ route('petugas.customers.index') }}" class="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white hover:bg-primaryDark">
                 Kembali
             </a>

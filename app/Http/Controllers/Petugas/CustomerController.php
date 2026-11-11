@@ -29,7 +29,7 @@ class CustomerController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'identity_number' => ['required', 'string', 'max:30', 'unique:customers,identity_number'],
+            'identity_number' => ['required', 'digits:16', 'unique:customers,identity_number'],
             'name' => ['required', 'string', 'max:255'],
             'phone' => ['nullable', 'string', 'max:20'],
             'address' => ['nullable', 'string'],
@@ -62,7 +62,7 @@ class CustomerController extends Controller
     public function update(Request $request, Customer $customer)
     {
         $validated = $request->validate([
-            'identity_number' => ['required', 'string', 'max:30', 'unique:customers,identity_number,' . $customer->id],
+            'identity_number' => ['required', 'digits:16', 'unique:customers,identity_number,' . $customer->id],
             'name' => ['required', 'string', 'max:255'],
             'phone' => ['nullable', 'string', 'max:20'],
             'address' => ['nullable', 'string'],
@@ -72,6 +72,13 @@ class CustomerController extends Controller
         $customer->update($validated);
 
         return redirect()->route('petugas.customers.index')->with('success', 'Data nasabah berhasil diperbarui.');
+    }
+
+    public function destroy(Customer $customer)
+    {
+        $customer->delete();
+
+        return redirect()->route('petugas.customers.index')->with('success', 'Data nasabah berhasil dihapus.');
     }
 
     public function searchJson(Request $request)

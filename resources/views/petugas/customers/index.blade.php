@@ -39,6 +39,11 @@
                             <td class="px-4 py-3 text-right space-x-2">
                                 <a href="{{ route('petugas.customers.show', $customer->id) }}" class="text-xs font-semibold text-info hover:underline">Detail</a>
                                 <a href="{{ route('petugas.customers.edit', $customer->id) }}" class="text-xs font-semibold text-primary hover:underline">Edit</a>
+                                <form method="POST" action="{{ route('petugas.customers.destroy', $customer->id) }}" class="inline" onsubmit="return confirm('Hapus data nasabah ini?')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="text-xs font-semibold text-danger hover:underline">Hapus</button>
+                                </form>
                             </td>
                         </tr>
                     @empty

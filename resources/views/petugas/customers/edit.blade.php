@@ -10,7 +10,7 @@
                 <div class="grid gap-5 md:grid-cols-2">
                     <div>
                         <label class="block text-sm font-medium text-textPrimary mb-1">Nomor KTP / Identitas <span class="text-danger">*</span></label>
-                        <input type="text" name="identity_number" value="{{ old('identity_number', $customer->identity_number) }}" required class="w-full rounded-lg border border-border bg-white px-3 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 font-mono" />
+                        <input type="text" name="identity_number" value="{{ old('identity_number', $customer->identity_number) }}" required minlength="16" maxlength="16" pattern="[0-9]{16}" inputmode="numeric" class="w-full rounded-lg border border-border bg-white px-3 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 font-mono" />
                     </div>
 
                     <div>
